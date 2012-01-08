@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xkp.qva.android.libs.Layouts.XKPLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:xkp="http://schemas.android.com/apk/res/xkp.qva.android.Graphics2D"
+    android:id="@+id/mainLayout" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+	xkp:placement="client"
+    >
+    
+	<TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/hello"
+	    />
+    
+	<xkp.qva.android.libs.Graphics.XKPCircle
+		android:id="@+id/head"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		xkp:pos_x1="150dp"
+		xkp:pos_y1="150dp"
+		xkp:radius="120dp"
+		
+		xkp:line_width="2dp"
+		xkp:fill_color="@color/pink"
+		xkp:stroke_color="@color/yellow"
+		/>
+		 
+	<xkp.qva.android.libs.Graphics.XKPRectangle
+		android:id="@+id/mouth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		xkp:pos_x1="90dp"
+		xkp:pos_y1="210dp"
+		xkp:pos_x2="210dp"
+		xkp:pos_y2="230dp"
+		
+		xkp:line_width="2dp"
+		xkp:fill_color="@color/red"
+		xkp:stroke_color="@color/brown"
+		/>
+		
+	<xkp.qva.android.libs.Layouts.XKPLayout
+		android:id="@+id/div1" 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		xkp:placement="client"
+		>
+		
+		<xkp.qva.android.libs.Graphics.XKPClip
+			android:id="@+id/lefteye"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			xkp:pos_x1="90dp"
+			xkp:pos_y1="80dp"
+			xkp:pos_x2="140dp"
+			xkp:pos_y2="110dp"
+			
+			xkp:form="circle"
+			/>
+			
+		<xkp.qva.android.libs.Graphics.XKPClip
+			android:id="@+id/righteye"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			xkp:pos_x1="160dp"
+			xkp:pos_y1="80dp"
+			xkp:pos_x2="210dp"
+			xkp:pos_y2="110dp"
+			
+			xkp:form="circle"
+			/>
+			
+		<xkp.qva.android.libs.Graphics.XKPRectangle
+			android:id="@+id/eyes"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			xkp:pos_x1="80dp"
+			xkp:pos_y1="60dp"
+			xkp:pos_x2="220dp"
+			xkp:pos_y2="150dp"
+			
+			xkp:line_width="2dp"
+			xkp:fill_color="@color/blue"
+			xkp:stroke_color="@color/blue"
+			/>
+			
+	</xkp.qva.android.libs.Layouts.XKPLayout>
+	    
+	<xkp.qva.android.libs.Graphics.XKPPolygon
+		android:id="@+id/nose"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		xkp:line_width="1dp"
+		xkp:fill_color="@color/green"
+		xkp:stroke_color="@color/magenta"
+		/>
+	
+</xkp.qva.android.libs.Layouts.XKPLayout>
