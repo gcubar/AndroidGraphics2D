@@ -6,27 +6,34 @@ import xkp.qva.android.libs.Graphics.XKPPolygon;
 import xkp.qva.android.libs.Graphics.XKPRectangle;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 public class Graphics2DActivity 
 	extends Activity 
 	implements OnClickInsideFigureListener {
 	
-	XKPPolygon nose;
-	XKPRectangle eyes;
-	XKPRectangle mouth;
-	XKPClip lefteye;
-	XKPClip righteye;
+	private XKPPolygon nose;
+	private XKPRectangle eyes;
+	private XKPRectangle mouth;
+	private XKPClip lefteye;
+	private XKPClip righteye;
+	
+	private float logicalDensity;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+        logicalDensity = outMetrics.density;
+        
         nose = (XKPPolygon) findViewById(R.id.nose);
-        nose.addPoint(150, 130);
-        nose.addPoint(120, 170);
-        nose.addPoint(180, 170);
+        nose.addPoint(dpi2px(150), dpi2px(130));
+        nose.addPoint(dpi2px(120), dpi2px(170));
+        nose.addPoint(dpi2px(180), dpi2px(170));
         nose.setOnClickInsideFigureListener(this);
         
         eyes = (XKPRectangle) findViewById(R.id.eyes);
@@ -37,6 +44,10 @@ public class Graphics2DActivity
         
         mouth = (XKPRectangle) findViewById(R.id.mouth);
         mouth.setOnClickInsideFigureListener(this);
+    }
+    
+    private int dpi2px(int dp) {
+    	return (int) (dp * logicalDensity + 0.5);
     }
     
     private int mInc = 2;
