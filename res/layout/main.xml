@@ -7,7 +7,7 @@
     android:layout_height="fill_parent"
 	xkp:placement="client"
     >
-    
+     
 	<TextView  
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
@@ -102,5 +102,39 @@
 		xkp:fill_color="@color/green"
 		xkp:stroke_color="@color/magenta"
 		/>
-	
+	 
+	<xkp.qva.android.libs.Graphics.XKPRectangle
+		android:id="@+id/body1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		xkp:pos_x1="80dp"
+		xkp:pos_y1="300dp"
+		xkp:pos_width="80dp"
+		xkp:pos_height="20dp"
+		
+		xkp:rotation="-70"
+		
+		xkp:line_width="2dp"
+		xkp:fill_color="@color/pink"
+		xkp:stroke_color="@color/yellow"
+		/>
+		
+	<xkp.qva.android.libs.Graphics.XKPRectangle
+		android:id="@+id/body2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		xkp:pos_x1="140dp"
+		xkp:pos_y1="300dp"
+		xkp:pos_width="80dp"
+		xkp:pos_height="20dp"
+		
+		xkp:rotation="70"
+		
+		xkp:line_width="2dp"
+		xkp:fill_color="@color/pink"
+		xkp:stroke_color="@color/yellow"
+		/>
+		
 </xkp.qva.android.libs.Layouts.XKPLayout>

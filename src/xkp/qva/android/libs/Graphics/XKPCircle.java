@@ -1,14 +1,12 @@
 package xkp.qva.android.libs.Graphics;
 
+import xkp.qva.android.Graphics2D.R;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.RectF;
 import android.graphics.Path.Direction;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
 import android.util.AttributeSet;
-
-import xkp.qva.android.Graphics2D.R;
 
 public class XKPCircle extends XKPGraphics {
 	
@@ -30,11 +28,11 @@ public class XKPCircle extends XKPGraphics {
 		
 		updateShapePosition();
 		
-		RectF bounds = new RectF();
-		mPathShape.computeBounds(bounds, true);
+		mPathShape.transform(mMtxRotation);
+		mPathShape.computeBounds(mBounds, true);
 		
-		mDrawable = new ShapeDrawable(new PathShape(mPathShape, bounds.width(), bounds.height()));
-		mDrawable.setBounds(0, 0, (int) bounds.width(), (int) bounds.height());
+		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
+		mDrawable.setBounds(0, 0, (int) mBounds.width(), (int) mBounds.height());
 	}
 	
 	@Override

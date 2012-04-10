@@ -3,6 +3,7 @@ package xkp.qva.android.libs.Graphics;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -33,6 +34,10 @@ public class XKPGraphics extends View {
 	
 	protected Integer 		mDX					= 0;
 	protected Integer		mDY					= 0;
+	
+	protected RectF			mBounds				= new RectF();
+	protected Integer		mRotation			= 0;
+	protected Matrix		mMtxRotation		= new Matrix();
 	
 	protected Point			mLeftTop			= new Point();
 	protected Point			mBottomRight		= new Point();
@@ -71,6 +76,8 @@ public class XKPGraphics extends View {
 		mDX = ta.getDimensionPixelOffset(R.styleable.XKPGraphics_pos_width, -1);
 		mDY = ta.getDimensionPixelOffset(R.styleable.XKPGraphics_pos_height, -1);
 		
+		int rotation = ta.getInteger(R.styleable.XKPGraphics_rotation, 0);
+		
 		if(mDX != -1 && mDY != -1) {
 			mX2 = mX1 + mDX;
 			mY2 = mY1 + mDY;
@@ -96,6 +103,7 @@ public class XKPGraphics extends View {
 		mPaintFill.setStrokeWidth(mLineWidth);
 		
 		setPosition(mX1, mY1, mX2, mY2);
+		setRotation(rotation);
 		
 		setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(final View v, final MotionEvent event) {
@@ -165,6 +173,18 @@ public class XKPGraphics extends View {
 	
 	protected Boolean getIsDrawable() {
 		return true;
+	}
+	
+	public void setRotation(Integer rotation) {
+		mRotation = rotation % 360;
+		int centerX = mLeftTop.x + (int) (mDX / 2);
+		int centerY = mLeftTop.y + (int) (mDY / 2);
+		mMtxRotation.setRotate(mRotation, centerX, centerY);
+		invalidate();
+	}
+	
+	public Integer getRotation() {
+		return mRotation;
 	}
 	
 	public void setLineWidth(Integer width) {

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path.FillType;
 import android.graphics.Point;
-import android.graphics.RectF;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
 import android.util.AttributeSet;
@@ -31,11 +30,10 @@ public class XKPPolygon extends XKPGraphics {
 		
 		updatePath();
 		
-		RectF bounds = new RectF();
-		mPathShape.computeBounds(bounds, true);
+		mPathShape.computeBounds(mBounds, true);
 		
-		mDrawable = new ShapeDrawable(new PathShape(mPathShape, bounds.width(), bounds.height()));
-		mDrawable.setBounds(0, 0, (int) bounds.width(), (int) bounds.height());
+		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
+		mDrawable.setBounds(0, 0, (int) mBounds.width(), (int) mBounds.height());
 		
 		super.onDraw(canvas);
 	}
@@ -53,6 +51,7 @@ public class XKPPolygon extends XKPGraphics {
 			}
 		}
 		
+		mPathShape.transform(mMtxRotation);
 		mPathShape.close();
 	}
 	
