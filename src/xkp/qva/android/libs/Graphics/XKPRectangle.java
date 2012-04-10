@@ -17,8 +17,6 @@ public class XKPRectangle extends XKPGraphics {
 		
 		updateShapePosition();
 		
-		//mPathShape.computeBounds(mBounds, true);
-		mPathShape.transform(mMtxRotation);
 		mPathShape.computeBounds(mBounds, true);
 		
 		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
@@ -29,5 +27,6 @@ public class XKPRectangle extends XKPGraphics {
 	protected void updateShapePosition() {
 		mPathShape.reset();
 		mPathShape.addRect(mLeftTop.x, mLeftTop.y, mBottomRight.x, mBottomRight.y, Direction.CCW);
+		mPathShape.transform(mMtxRotation);
 	}
 }

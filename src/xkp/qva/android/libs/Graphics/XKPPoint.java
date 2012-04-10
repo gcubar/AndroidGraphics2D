@@ -17,7 +17,6 @@ public class XKPPoint extends XKPGraphics {
 
 		updateShapePosition();
 		
-		mPathShape.transform(mMtxRotation);
 		mPathShape.computeBounds(mBounds, true);
 		
 		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
@@ -29,5 +28,6 @@ public class XKPPoint extends XKPGraphics {
 		Integer mRadius = new Integer(1);
 		mPathShape.reset();
 		mPathShape.addCircle(mX1, mY1, mRadius, Direction.CCW);
+		mPathShape.transform(mMtxRotation);
 	}
 }

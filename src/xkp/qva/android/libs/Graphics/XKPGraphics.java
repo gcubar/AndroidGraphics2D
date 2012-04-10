@@ -308,6 +308,7 @@ public class XKPGraphics extends View {
 		if(mDX == 0) mDX = 1;
 		if(mDY == 0) mDY = 1;
 		
+		setRotation(mRotation);
 		updateShapePosition();
 		
 		invalidate();
@@ -327,6 +328,16 @@ public class XKPGraphics extends View {
 	
 	public void setFigureHeight(Integer height) {
 		setPosition(mX1, mY1, mX2, mY1 + height);
+	}
+	
+	public void setLeft(Integer x) {
+		int delthaX = x - mX1;
+		setPosition(mX1 + delthaX, mY1, mX2 + delthaX, mY2);
+	}
+	
+	public void setTop(Integer y) {
+		int delthaY = y - mY1;
+		setPosition(mX1, mY1 + delthaY, mX2, mY2 + delthaY);
 	}
 	
 	public void setX1(Integer x1) {

@@ -4,6 +4,7 @@ import xkp.qva.android.libs.Graphics.XKPClip;
 import xkp.qva.android.libs.Graphics.XKPGraphics.OnClickInsideFigureListener;
 import xkp.qva.android.libs.Graphics.XKPPolygon;
 import xkp.qva.android.libs.Graphics.XKPRectangle;
+import xkp.qva.android.libs.Layouts.XKPLayout;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -13,11 +14,15 @@ public class Graphics2DActivity
 	extends Activity 
 	implements OnClickInsideFigureListener {
 	
+	private XKPLayout mainLayout;
+	
 	private XKPPolygon nose;
 	private XKPRectangle eyes;
 	private XKPRectangle mouth;
 	private XKPClip lefteye;
 	private XKPClip righteye;
+	private XKPRectangle body1;
+	private XKPRectangle body2;
 	
 	private float logicalDensity;
 	
@@ -29,6 +34,8 @@ public class Graphics2DActivity
         DisplayMetrics outMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
         logicalDensity = outMetrics.density;
+        
+        mainLayout = (XKPLayout) findViewById(R.id.mainLayout);
         
         nose = (XKPPolygon) findViewById(R.id.nose);
         nose.addPoint(dpi2px(150), dpi2px(130));
@@ -44,6 +51,12 @@ public class Graphics2DActivity
         
         mouth = (XKPRectangle) findViewById(R.id.mouth);
         mouth.setOnClickInsideFigureListener(this);
+        
+        body1 = (XKPRectangle) findViewById(R.id.body1);
+        body1.setOnClickInsideFigureListener(this);
+        
+        body2 = (XKPRectangle) findViewById(R.id.body2);
+        body2.setOnClickInsideFigureListener(this);
     }
     
     private int dpi2px(int dp) {
@@ -70,6 +83,16 @@ public class Graphics2DActivity
 		case R.id.mouth:
 			mouth.setPosition(mouth.getX1() + mInc, mouth.getY1() + mInc, 
 					mouth.getX2() - mInc, mouth.getY2() - mInc);
+			break;
+			
+		case R.id.body1:
+			body1.setLeft(body1.getX1() - 5);
+			body2.setLeft(body2.getX1() - 5);
+			break;
+			
+		case R.id.body2:
+			body1.setLeft(body1.getX1() + 5);
+			body2.setLeft(body2.getX1() + 5);
 			break;
 		}
 	}

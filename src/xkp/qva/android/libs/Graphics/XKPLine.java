@@ -16,7 +16,6 @@ public class XKPLine extends XKPGraphics {
 
 		updateShapePosition();
 		
-		mPathShape.transform(mMtxRotation);
 		mPathShape.computeBounds(mBounds, true);
 		
 		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
@@ -28,5 +27,6 @@ public class XKPLine extends XKPGraphics {
 		mPathShape.reset();
 		mPathShape.moveTo(mX1, mY1);
 		mPathShape.lineTo(mX2, mY2);
+		mPathShape.transform(mMtxRotation);
 	}
 }
