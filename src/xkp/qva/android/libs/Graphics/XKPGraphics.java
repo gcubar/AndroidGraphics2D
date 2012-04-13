@@ -2,6 +2,7 @@ package xkp.qva.android.libs.Graphics;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -47,6 +48,7 @@ public class XKPGraphics extends View {
 	protected Path			mPathShape			= new Path();
 	protected Path			mPathClipRef;
 	protected ShapeDrawable	mDrawable;
+	protected Bitmap		mBitmap;
 
 	protected Paint mPaintFill 		= new Paint();
 	protected Paint mPaintStroke 	= new Paint();
@@ -159,14 +161,17 @@ public class XKPGraphics extends View {
 			if(mPathClipRef != null && !mPathClipRef.isEmpty())
 				canvas.clipPath(mPathClipRef, Region.Op.REPLACE);
 		}
+
+		if(mBitmap != null) {
+			canvas.drawBitmap(mBitmap, null, new RectF(mX1, mY1, mX2, mY2), null);
+		}
 		
-		// no implement functionality for now
-		//canvas.drawColor(mBackgroundColor);
-		
-		mDrawable.getPaint().set(mPaintFill);
-		mDrawable.draw(canvas);
-		mDrawable.getPaint().set(mPaintStroke);
-		mDrawable.draw(canvas);
+		if(mDrawable != null) {
+			mDrawable.getPaint().set(mPaintFill);
+			mDrawable.draw(canvas);
+			mDrawable.getPaint().set(mPaintStroke);
+			mDrawable.draw(canvas);
+		}
 		
 		canvas.restore();
 	}
@@ -294,8 +299,8 @@ public class XKPGraphics extends View {
 		mX1 = x1;
 		mY1 = y1;
 		
-		if(mX2 == -1) mX2 = mX1; else mX2 = x2;
-		if(mY2 == -1) mY2 = mY1; else mY2 = y2;
+		if(mX2 == -1 && x2 == -1) mX2 = mX1; else mX2 = x2;
+		if(mY2 == -1 && y2 == -1) mY2 = mY1; else mY2 = y2;
 		
 		mLeftTop.set(Math.min(mX1, mX2), Math.min(mY1, mY2));
 		mBottomRight.set(Math.max(mX1, mX2), Math.max(mY1, mY2));
@@ -338,6 +343,14 @@ public class XKPGraphics extends View {
 	public void setTop(Integer y) {
 		int delthaY = y - mY1;
 		setPosition(mX1, mY1 + delthaY, mX2, mY2 + delthaY);
+	}
+	
+	public void setWidth(Integer width) {
+		setPosition(mX1, mY1, mX1 + width, mY2);
+	}
+	
+	public void setHeight(Integer height) {
+		setPosition(mX1, mY1, mX2, mY1 + height);
 	}
 	
 	public void setX1(Integer x1) {

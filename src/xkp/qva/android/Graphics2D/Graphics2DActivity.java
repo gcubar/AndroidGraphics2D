@@ -2,6 +2,7 @@ package xkp.qva.android.Graphics2D;
 
 import xkp.qva.android.libs.Graphics.XKPClip;
 import xkp.qva.android.libs.Graphics.XKPGraphics.OnClickInsideFigureListener;
+import xkp.qva.android.libs.Graphics.XKPImage;
 import xkp.qva.android.libs.Graphics.XKPPolygon;
 import xkp.qva.android.libs.Graphics.XKPRectangle;
 import xkp.qva.android.libs.Layouts.XKPLayout;
@@ -57,6 +58,11 @@ public class Graphics2DActivity
         
         body2 = (XKPRectangle) findViewById(R.id.body2);
         body2.setOnClickInsideFigureListener(this);
+        
+        XKPImage img1 = new XKPImage(this);
+        img1.setPosition(dpi2px(260), dpi2px(20));
+        img1.setImageResource(R.drawable.launcher);
+        mainLayout.addView(img1);
     }
     
     private int dpi2px(int dp) {
