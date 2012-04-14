@@ -1,5 +1,6 @@
 package xkp.qva.android.Graphics2D;
 
+import xkp.qva.android.libs.Graphics.XKPCircle;
 import xkp.qva.android.libs.Graphics.XKPClip;
 import xkp.qva.android.libs.Graphics.XKPGraphics.OnClickInsideFigureListener;
 import xkp.qva.android.libs.Graphics.XKPImage;
@@ -20,6 +21,7 @@ public class Graphics2DActivity
 	private XKPPolygon nose;
 	private XKPRectangle eyes;
 	private XKPRectangle mouth;
+	private XKPCircle head;
 	private XKPClip lefteye;
 	private XKPClip righteye;
 	private XKPRectangle body1;
@@ -37,6 +39,9 @@ public class Graphics2DActivity
         logicalDensity = outMetrics.density;
         
         mainLayout = (XKPLayout) findViewById(R.id.mainLayout);
+        
+        head = (XKPCircle) findViewById(R.id.head);
+        head.setOnClickInsideFigureListener(this);
         
         nose = (XKPPolygon) findViewById(R.id.nose);
         nose.addPoint(dpi2px(150), dpi2px(130));
@@ -99,6 +104,11 @@ public class Graphics2DActivity
 		case R.id.body2:
 			body1.setLeft(body1.getX1() + 5);
 			body2.setLeft(body2.getX1() + 5);
+			break;
+			
+		case R.id.head:
+			//nose.setRotation(nose.getRotation() + 5);
+			mouth.setRotation(mouth.getRotation() + 5);
 			break;
 		}
 	}

@@ -37,7 +37,7 @@ public class XKPGraphics extends View {
 	protected Integer		mDY					= 0;
 	
 	protected RectF			mBounds				= new RectF();
-	protected Integer		mRotation			= 0;
+	protected double		mRotation			= 0;
 	protected Matrix		mMtxRotation		= new Matrix();
 	
 	protected Point			mLeftTop			= new Point();
@@ -180,15 +180,18 @@ public class XKPGraphics extends View {
 		return true;
 	}
 	
-	public void setRotation(Integer rotation) {
-		mRotation = rotation % 360;
+	public void setRotation(double rotation) {
+		mRotation = rotation;
 		int centerX = mLeftTop.x + (int) (mDX / 2);
 		int centerY = mLeftTop.y + (int) (mDY / 2);
-		mMtxRotation.setRotate(mRotation, centerX, centerY);
+		mMtxRotation.reset();
+		mMtxRotation.setRotate((float)mRotation, centerX, centerY);
+		updateShapePosition();
+		
 		invalidate();
 	}
 	
-	public Integer getRotation() {
+	public double getRotation() {
 		return mRotation;
 	}
 	
@@ -336,13 +339,13 @@ public class XKPGraphics extends View {
 	}
 	
 	public void setLeft(Integer x) {
-		int delthaX = x - mX1;
-		setPosition(mX1 + delthaX, mY1, mX2 + delthaX, mY2);
+		int delthaX = mX2 - mX1;
+		setPosition(x, mY1, x + delthaX, mY2);
 	}
 	
 	public void setTop(Integer y) {
-		int delthaY = y - mY1;
-		setPosition(mX1, mY1 + delthaY, mX2, mY2 + delthaY);
+		int delthaY = mY2 - mY1;
+		setPosition(mX1, y, mX2, y + delthaY);
 	}
 	
 	public void setWidth(Integer width) {
@@ -351,6 +354,14 @@ public class XKPGraphics extends View {
 	
 	public void setHeight(Integer height) {
 		setPosition(mX1, mY1, mX2, mY1 + height);
+	}
+	
+	public Integer getDX() {
+		return mDX;
+	}
+	
+	public Integer getDY() {
+		return mDY;
 	}
 	
 	public void setX1(Integer x1) {
