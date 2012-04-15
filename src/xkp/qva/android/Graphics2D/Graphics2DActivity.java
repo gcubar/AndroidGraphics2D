@@ -107,8 +107,8 @@ public class Graphics2DActivity
 			break;
 			
 		case R.id.head:
-			//nose.setRotation(nose.getRotation() + 5);
-			mouth.setRotation(mouth.getRotation() + 5);
+			nose.setRotation(nose.getRotation() + 5);
+			//mouth.setRotation(mouth.getRotation() + 5);
 			break;
 		}
 	}

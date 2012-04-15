@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 
 public class XKPPolygon extends XKPGraphics {
 
-	public ArrayList<Point> mPoints;
+	public ArrayList<Point> mPoints = new ArrayList<Point>();
 	
 	public XKPPolygon(Context context) {
 		this(context, null);
@@ -21,14 +21,13 @@ public class XKPPolygon extends XKPGraphics {
 	public XKPPolygon(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
-		mPoints = new ArrayList<Point>();
 		mPathShape.setFillType(FillType.EVEN_ODD);
 	}
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		
-		updatePath();
+		updateShapePosition();
 		
 		mPathShape.computeBounds(mBounds, true);
 		
@@ -38,27 +37,38 @@ public class XKPPolygon extends XKPGraphics {
 		super.onDraw(canvas);
 	}
 	
-	protected void updatePath() {
+	@Override
+	protected void updateShapePosition() {
+		if(mPoints == null) return;
+		
 		mPathShape.reset();
 		
 		Boolean first = true;
 		for(Point point : mPoints) {
 			if(first) {
 				mPathShape.moveTo(point.x, point.y);
+				mLeftTop.set(point.x, point.y);
+				mBottomRight.set(point.x, point.y);
 				first = false;
 			} else {
 				mPathShape.lineTo(point.x, point.y);
 			}
+			
+			mLeftTop.set(Math.min(mLeftTop.x, point.x), Math.min(mLeftTop.y, point.y));
+			mBottomRight.set(Math.max(mBottomRight.x, point.x), Math.max(mBottomRight.y, point.y));
 		}
 		
-		mPathShape.transform(mMtxRotation);
+		mDX = Math.abs(mLeftTop.x - mBottomRight.x);
+		mDY = Math.abs(mLeftTop.y - mBottomRight.y);
+		
 		mPathShape.close();
+		mPathShape.transform(mMtxRotation);
 	}
 	
 	public void addPoint(Point point) {
 		mPoints.add(point);
 		
-		updatePath();
+		updateShapePosition();
 		
 		invalidate();
 	}
