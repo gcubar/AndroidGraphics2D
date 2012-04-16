@@ -29,11 +29,6 @@ public class XKPPolygon extends XKPGraphics {
 		
 		updateShapePosition();
 		
-		mPathShape.computeBounds(mBounds, true);
-		
-		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
-		mDrawable.setBounds(0, 0, (int) mBounds.width(), (int) mBounds.height());
-		
 		super.onDraw(canvas);
 	}
 	
@@ -63,6 +58,11 @@ public class XKPPolygon extends XKPGraphics {
 		
 		mPathShape.close();
 		mPathShape.transform(mMtxRotation);
+		
+		mPathShape.computeBounds(mBounds, true);
+		
+		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
+		mDrawable.setBounds(0, 0, (int) mBounds.width(), (int) mBounds.height());
 	}
 	
 	public void addPoint(Point point) {

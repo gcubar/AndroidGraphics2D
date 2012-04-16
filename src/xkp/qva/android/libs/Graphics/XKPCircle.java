@@ -27,11 +27,6 @@ public class XKPCircle extends XKPGraphics {
 		ta.recycle();
 		
 		updateShapePosition();
-		
-		mPathShape.computeBounds(mBounds, true);
-		
-		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
-		mDrawable.setBounds(0, 0, (int) mBounds.width(), (int) mBounds.height());
 	}
 	
 	@Override
@@ -41,6 +36,11 @@ public class XKPCircle extends XKPGraphics {
 			mPathShape.addCircle(mX1, mY1, mRadius, Direction.CCW);
 			mPathShape.transform(mMtxRotation);
 		}
+		
+		mPathShape.computeBounds(mBounds, true);
+		
+		mDrawable = new ShapeDrawable(new PathShape(mPathShape, mBounds.width(), mBounds.height()));
+		mDrawable.setBounds(0, 0, (int) mBounds.width(), (int) mBounds.height());
 	}
 
 	public void setRadius(Integer radius) {
