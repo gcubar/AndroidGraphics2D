@@ -21,6 +21,8 @@ import xkp.qva.android.libs.Layouts.XKPLayout;
 
 public class XKPGraphics extends View {
 	
+	private final Integer	DEFAULT_SIZE		= 10;
+	
 	protected Integer 		mLineWidth 			= 0;
 	protected Integer 		mStrokeColor 		= 0xffffffff;
 	protected Integer 		mFillColor 			= 0xffffffff;
@@ -302,8 +304,8 @@ public class XKPGraphics extends View {
 		mX1 = x1;
 		mY1 = y1;
 		
-		if(mX2 == -1 && x2 == -1) mX2 = mX1; else mX2 = x2;
-		if(mY2 == -1 && y2 == -1) mY2 = mY1; else mY2 = y2;
+		if(mX2 == -1 && x2 == -1) mX2 = mX1 + DEFAULT_SIZE; else mX2 = x2;
+		if(mY2 == -1 && y2 == -1) mY2 = mY1 + DEFAULT_SIZE; else mY2 = y2;
 		
 		mLeftTop.set(Math.min(mX1, mX2), Math.min(mY1, mY2));
 		mBottomRight.set(Math.max(mX1, mX2), Math.max(mY1, mY2));
