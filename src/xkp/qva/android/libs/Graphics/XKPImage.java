@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Path.Direction;
 import android.util.AttributeSet;
 
 public class XKPImage extends XKPGraphics {
@@ -56,10 +57,16 @@ public class XKPImage extends XKPGraphics {
 		mBitmap = BitmapFactory.decodeResource(res, resId);
 	}
 	
+	@Override
+	protected void updateShapePosition() {
+		mPathShape.reset();
+		mPathShape.addRect(mLeftTop.x, mLeftTop.y, mBottomRight.x, mBottomRight.y, Direction.CCW);
+		mPathShape.transform(mMtxRotation);
+	}
+	
 	private void calculateSize() {
 		if(mBitmap == null) return;
 		
-		if(mX2 == -1 || mX1 == mX2) mX2 = mX1 + mBitmap.getWidth();
-		if(mY2 == -1 || mY1 == mY2) mY2 = mY1 + mBitmap.getHeight();
+		setFigureSize(mBitmap.getWidth(), mBitmap.getHeight());
 	}
 }
