@@ -37,6 +37,7 @@ public class XKPGraphics extends View {
 	
 	protected Integer 		mDX					= 0;
 	protected Integer		mDY					= 0;
+	protected Integer 		mRadius 			= 1;
 	
 	protected RectF			mBounds				= new RectF();
 	protected double		mRotation			= 0;
@@ -298,6 +299,18 @@ public class XKPGraphics extends View {
 	
 	protected void updateShapePosition() {
 	}
+
+	public void setRadius(Integer radius) {
+		mRadius = radius;
+		mX2 = mRadius * 2;
+		mY2 = mRadius * 2;
+		
+		invalidate();
+	}
+	
+	public Integer getRadius() {
+		return mRadius;
+	}
 	
 	public void setPosition(Integer x1, Integer y1, Integer x2, Integer y2) {
 		
@@ -317,6 +330,8 @@ public class XKPGraphics extends View {
 		
 		if(mDX == 0) mDX = 1;
 		if(mDY == 0) mDY = 1;
+		
+		mRadius = Math.max(mDX, mDY) / 2;
 		
 		setRotation(mRotation);
 		updateShapePosition();
