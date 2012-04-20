@@ -81,7 +81,7 @@ public class XKPGraphics extends View {
 		mDX = ta.getDimensionPixelOffset(R.styleable.XKPGraphics_pos_width, -1);
 		mDY = ta.getDimensionPixelOffset(R.styleable.XKPGraphics_pos_height, -1);
 		
-		int rotation = ta.getInteger(R.styleable.XKPGraphics_rotation, 0);
+		double rotation = ta.getFloat(R.styleable.XKPGraphics_rotation, 0);
 		
 		if(mDX != -1 && mDY != -1) {
 			mX2 = mX1 + mDX;
@@ -107,8 +107,8 @@ public class XKPGraphics extends View {
 		mPaintFill.setAntiAlias(true);
 		mPaintFill.setStrokeWidth(mLineWidth);
 		
-		setPosition(mX1, mY1, mX2, mY2);
 		setRotation(rotation);
+		setPosition(mX1, mY1, mX2, mY2);
 		
 		setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(final View v, final MotionEvent event) {
