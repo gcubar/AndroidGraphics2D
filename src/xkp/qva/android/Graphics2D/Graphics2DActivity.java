@@ -67,6 +67,7 @@ public class Graphics2DActivity
         XKPImage img1 = new XKPImage(this);
         img1.setPosition(dpi2px(260), dpi2px(20));
         img1.setImageResource(R.drawable.launcher);
+        img1.setRotation(45);
         mainLayout.addView(img1);
     }
     
