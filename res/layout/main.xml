@@ -19,8 +19,8 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		
-		xkp:pos_x1="150dp"
-		xkp:pos_y1="150dp"
+		xkp:pos_x1="30dp"
+		xkp:pos_y1="30dp"
 		xkp:radius="120dp"
 		
 		xkp:line_width="2dp"

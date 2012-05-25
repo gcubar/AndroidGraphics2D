@@ -31,7 +31,7 @@ public class XKPCircle extends XKPGraphics {
 	protected void updateShapePosition() {
 		if(mRadius != null) {
 			mPathShape.reset();
-			mPathShape.addCircle(mX1, mY1, mRadius, Direction.CCW);
+			mPathShape.addCircle(mX1 + mRadius, mY1 + mRadius, mRadius, Direction.CCW);
 			mPathShape.transform(mMtxAngle);
 		}
 		
