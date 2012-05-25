@@ -92,7 +92,7 @@
 			/>
 			
 	</xkp.qva.android.libs.Layouts.XKPLayout>
-	 
+
 	<xkp.qva.android.libs.Graphics.XKPPolygon
 		android:id="@+id/nose"
 		android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
 		xkp:fill_color="@color/green"
 		xkp:stroke_color="@color/magenta"
 		/>
-
+ 
 	<xkp.qva.android.libs.Graphics.XKPRectangle
 		android:id="@+id/body1"
 		android:layout_width="wrap_content"
@@ -137,5 +137,5 @@
 		xkp:fill_color="@color/pink"
 		xkp:stroke_color="@color/yellow"
 		/>
-
+ 
 </xkp.qva.android.libs.Layouts.XKPLayout>
