@@ -8,7 +8,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.drawable.ShapeDrawable;
@@ -37,15 +36,16 @@ public class XKPGraphics extends View {
 	
 	protected Integer 		mDX					= 0;
 	protected Integer		mDY					= 0;
+	protected Integer		mCenterX			= 0;
+	protected Integer		mCenterY			= 0;
 	protected Integer 		mRadius 			= 1;
 	
 	protected RectF			mBounds				= new RectF();
-	protected double		mRotation			= 0;
-	protected Matrix		mMtxRotation		= new Matrix();
+	protected double		mAngle				= 0;
+	protected Matrix		mMtxAngle			= new Matrix();
 	
 	protected Point			mLeftTop			= new Point();
 	protected Point			mBottomRight		= new Point();
-	protected Rect			mRect				= new Rect();
 	protected RectF			mRectF				= new RectF();
 	
 	protected Path			mPathShape			= new Path();
@@ -81,7 +81,7 @@ public class XKPGraphics extends View {
 		mDX = ta.getDimensionPixelOffset(R.styleable.XKPGraphics_pos_width, -1);
 		mDY = ta.getDimensionPixelOffset(R.styleable.XKPGraphics_pos_height, -1);
 		
-		double rotation = ta.getFloat(R.styleable.XKPGraphics_rotation, 0);
+		double angle = ta.getFloat(R.styleable.XKPGraphics_angle, 0);
 		
 		if(mDX != -1 && mDY != -1) {
 			mX2 = mX1 + mDX;
@@ -107,7 +107,7 @@ public class XKPGraphics extends View {
 		mPaintFill.setAntiAlias(true);
 		mPaintFill.setStrokeWidth(mLineWidth);
 		
-		setRotation(rotation);
+		setAngle(angle);
 		setPosition(mX1, mY1, mX2, mY2);
 		
 		setOnTouchListener(new OnTouchListener() {
@@ -166,8 +166,25 @@ public class XKPGraphics extends View {
 		}
 
 		if(mBitmap != null) {
-			Bitmap renderBmp = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), mMtxRotation, false);
-			canvas.drawBitmap(renderBmp, null, new RectF(mX1, mY1, mX2, mY2), null);
+			if(mX2 <= 0 || mY2 <= 0) return;
+			
+			// http://stackoverflow.com/questions/5287483/image-changes-size-as-its-rotated-how-do-i-stop-this
+	        // precompute some trig functions
+	        double radians = Math.toRadians(mAngle);
+	        double sin = Math.abs(Math.sin(radians));
+	        double cos = Math.abs(Math.cos(radians));
+	        
+	        // figure out total width and height of new bitmap
+	        int newWidth = (int) (mDX * cos + mDY * sin);
+	        int newHeight = (int) (mDX * sin + mDY * cos);
+	        int middleWidth = newWidth / 2;
+	        int middleHeight = newHeight / 2;
+			
+	        RectF newRectF = new RectF(mCenterX - middleWidth, mCenterY - middleHeight, 
+	        					mCenterX + middleWidth, mCenterY + middleHeight);
+	        
+			Bitmap renderBmp = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), mMtxAngle, false);
+			canvas.drawBitmap(renderBmp, null, newRectF, null);
 		}
 		
 		if(mDrawable != null) {
@@ -184,19 +201,22 @@ public class XKPGraphics extends View {
 		return true;
 	}
 	
-	public void setRotation(double rotation) {
-		mRotation = rotation;
-		int centerX = mLeftTop.x + (int) (mDX / 2);
-		int centerY = mLeftTop.y + (int) (mDY / 2);
-		mMtxRotation.reset();
-		mMtxRotation.setRotate((float)mRotation, centerX, centerY);
-		updateShapePosition();
+	private void preCalcAngle(double angle) {
+
+		mAngle = angle % 360;
 		
+		mMtxAngle.reset();
+		mMtxAngle.setRotate((float)mAngle, mCenterX, mCenterY);
+	}
+	
+	public void setAngle(double angle) {
+		preCalcAngle(angle);
+		updateShapePosition();
 		invalidate();
 	}
 	
-	public double getRotation() {
-		return mRotation;
+	public double getAngle() {
+		return mAngle;
 	}
 	
 	public void setLineWidth(Integer width) {
@@ -313,7 +333,7 @@ public class XKPGraphics extends View {
 		return mRadius;
 	}
 	
-	public void setPosition(Integer x1, Integer y1, Integer x2, Integer y2) {
+	private void preCalcPosition(Integer x1, Integer y1, Integer x2, Integer y2) {
 		
 		mX1 = x1;
 		mY1 = y1;
@@ -329,14 +349,20 @@ public class XKPGraphics extends View {
 		mDX = Math.abs(mX2 - mX1);
 		mDY = Math.abs(mY2 - mY1);
 		
+        mCenterX = mLeftTop.x + (int) (mDX / 2);
+		mCenterY = mLeftTop.y + (int) (mDY / 2);
+		
 		if(mDX == 0) mDX = 1;
 		if(mDY == 0) mDY = 1;
 		
 		mRadius = Math.max(mDX, mDY) / 2;
+	}
+	
+	public void setPosition(Integer x1, Integer y1, Integer x2, Integer y2) {
+		preCalcPosition(x1, y1, x2, y2);
+		preCalcAngle(mAngle);
 		
-		setRotation(mRotation);
 		updateShapePosition();
-		
 		invalidate();
 	}
 	

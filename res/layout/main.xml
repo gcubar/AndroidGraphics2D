@@ -13,7 +13,7 @@
 	    android:layout_height="wrap_content" 
 	    android:text="@string/hello"
 	    />
-    
+ 
 	<xkp.qva.android.libs.Graphics.XKPCircle
 		android:id="@+id/head"
 		android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
 		xkp:fill_color="@color/pink"
 		xkp:stroke_color="@color/yellow"
 		/>
-		 
+	
 	<xkp.qva.android.libs.Graphics.XKPRectangle
 		android:id="@+id/mouth"
 		android:layout_width="wrap_content"
@@ -92,18 +92,18 @@
 			/>
 			
 	</xkp.qva.android.libs.Layouts.XKPLayout>
-
+	 
 	<xkp.qva.android.libs.Graphics.XKPPolygon
 		android:id="@+id/nose"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		
-		xkp:rotation="30.30"
+		xkp:angle="30.30"
 		xkp:line_width="1dp"
 		xkp:fill_color="@color/green"
 		xkp:stroke_color="@color/magenta"
 		/>
-	
+
 	<xkp.qva.android.libs.Graphics.XKPRectangle
 		android:id="@+id/body1"
 		android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
 		xkp:pos_width="80dp"
 		xkp:pos_height="20dp"
 		
-		xkp:rotation="-70"
+		xkp:angle="-70"
 		
 		xkp:line_width="2dp"
 		xkp:fill_color="@color/pink"
@@ -131,7 +131,7 @@
 		xkp:pos_width="80dp"
 		xkp:pos_height="20dp"
 		
-		xkp:rotation="70"
+		xkp:angle="70"
 		
 		xkp:line_width="2dp"
 		xkp:fill_color="@color/pink"

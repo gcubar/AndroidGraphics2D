@@ -27,7 +27,7 @@ public class XKPPolygon extends XKPGraphics {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		
-		setRotation(mRotation);
+		setAngle(mAngle);
 		
 		super.onDraw(canvas);
 	}
@@ -56,8 +56,11 @@ public class XKPPolygon extends XKPGraphics {
 		mDX = Math.abs(mLeftTop.x - mBottomRight.x);
 		mDY = Math.abs(mLeftTop.y - mBottomRight.y);
 		
+        mCenterX = mLeftTop.x + (int) (mDX / 2);
+		mCenterY = mLeftTop.y + (int) (mDY / 2);
+		
 		mPathShape.close();
-		mPathShape.transform(mMtxRotation);
+		mPathShape.transform(mMtxAngle);
 		
 		mPathShape.computeBounds(mBounds, true);
 		

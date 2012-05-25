@@ -1,7 +1,6 @@
 package xkp.qva.android.libs.Graphics;
 
 import xkp.qva.android.Graphics2D.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -65,7 +64,7 @@ public class XKPImage extends XKPGraphics {
 	protected void updateShapePosition() {
 		mPathShape.reset();
 		mPathShape.addRect(mLeftTop.x, mLeftTop.y, mBottomRight.x, mBottomRight.y, Direction.CCW);
-		mPathShape.transform(mMtxRotation);
+		mPathShape.transform(mMtxAngle);
 	}
 	
 	private void calculateSize() {

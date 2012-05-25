@@ -26,6 +26,7 @@ public class Graphics2DActivity
 	private XKPClip righteye;
 	private XKPRectangle body1;
 	private XKPRectangle body2;
+	private XKPImage img1;
 	
 	private float logicalDensity;
 	
@@ -64,11 +65,12 @@ public class Graphics2DActivity
         body2 = (XKPRectangle) findViewById(R.id.body2);
         body2.setOnClickInsideFigureListener(this);
         
-        XKPImage img1 = new XKPImage(this);
+        img1 = new XKPImage(this);
         img1.setPosition(dpi2px(260), dpi2px(20));
         img1.setImageResource(R.drawable.launcher);
-        img1.setRotation(45);
+        img1.setOnClickInsideFigureListener(this);
         mainLayout.addView(img1);
+        
     }
     
     private int dpi2px(int dp) {
@@ -77,8 +79,8 @@ public class Graphics2DActivity
     
     private int mInc = 2;
 
-	@Override
 	public void onClickInsideFigure(View v) {
+		
 		switch (v.getId()) {
 		case R.id.eyes:
 			lefteye.setPosition(lefteye.getX1() - mInc, lefteye.getY1(), 
@@ -86,7 +88,7 @@ public class Graphics2DActivity
 			righteye.setPosition(righteye.getX1() - mInc, righteye.getY1(), 
 					righteye.getX2() + mInc, righteye.getY2());
 			break;
-			
+		
 		case R.id.nose:
 			mouth.setPosition(mouth.getX1() - mInc, mouth.getY1() - mInc, 
 					mouth.getX2() + mInc, mouth.getY2() + mInc);
@@ -108,9 +110,13 @@ public class Graphics2DActivity
 			break;
 			
 		case R.id.head:
-			nose.setRotation(nose.getRotation() + 5);
-			//mouth.setRotation(mouth.getRotation() + 5);
+			nose.setAngle(nose.getAngle() + 5);
+			mouth.setAngle(mouth.getAngle() + 5);
 			break;
+		}
+		
+		if(v.equals(img1)) {
+			img1.setAngle(img1.getAngle() + 10);
 		}
 	}
 }
