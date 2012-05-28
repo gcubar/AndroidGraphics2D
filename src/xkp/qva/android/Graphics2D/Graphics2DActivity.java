@@ -22,6 +22,7 @@ public class Graphics2DActivity
 	private XKPRectangle eyes;
 	private XKPRectangle mouth;
 	private XKPCircle head;
+	private XKPCircle other;
 	private XKPClip lefteye;
 	private XKPClip righteye;
 	private XKPRectangle body1;
@@ -43,6 +44,9 @@ public class Graphics2DActivity
         
         head = (XKPCircle) findViewById(R.id.head);
         head.setOnClickInsideFigureListener(this);
+        
+        other = (XKPCircle) findViewById(R.id.other);
+        other.setOnClickInsideFigureListener(this);
         
         nose = (XKPPolygon) findViewById(R.id.nose);
         nose.addPoint(dpi2px(150), dpi2px(130));
@@ -113,10 +117,15 @@ public class Graphics2DActivity
 			nose.setAngle(nose.getAngle() + 5);
 			mouth.setAngle(mouth.getAngle() + 5);
 			break;
+			
+		case R.id.other:
+			other.setAngle(other.getAngle() + 1);
+			break;
 		}
 		
 		if(v.equals(img1)) {
 			img1.setAngle(img1.getAngle() + 10);
+			//img1.setPosition(img1.getX1() - 5, img1.getY1() + 5);
 		}
 	}
 }

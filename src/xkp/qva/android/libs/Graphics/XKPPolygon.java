@@ -44,11 +44,7 @@ public class XKPPolygon extends XKPGraphics {
 			mBottomRight.set(Math.max(mBottomRight.x, point.x), Math.max(mBottomRight.y, point.y));
 		}
 		
-		mDX = Math.abs(mLeftTop.x - mBottomRight.x);
-		mDY = Math.abs(mLeftTop.y - mBottomRight.y);
-		
-        mCenterX = mLeftTop.x + (int) (mDX / 2);
-		mCenterY = mLeftTop.y + (int) (mDY / 2);
+		preCalcPosition(mLeftTop.x, mLeftTop.y, mBottomRight.x, mBottomRight.y);
 		
 		mPathShape.close();
 		mPathShape.transform(mMtxAngle);

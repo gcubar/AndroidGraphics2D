@@ -24,6 +24,7 @@ public class XKPCircle extends XKPGraphics {
 		
 		ta.recycle();
 		
+		preCalcPosition(mX1, mY1, mX1 + 2 * mRadius, mY1 + 2 * mRadius);
 		updateShapePosition();
 	}
 	

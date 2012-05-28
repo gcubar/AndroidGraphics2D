@@ -92,7 +92,7 @@
 			/>
 			
 	</xkp.qva.android.libs.Layouts.XKPLayout>
-
+ 
 	<xkp.qva.android.libs.Graphics.XKPPolygon
 		android:id="@+id/nose"
 		android:layout_width="wrap_content"
@@ -138,4 +138,18 @@
 		xkp:stroke_color="@color/yellow"
 		/>
  
+	<xkp.qva.android.libs.Graphics.XKPCircle
+		android:id="@+id/other"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		xkp:pos_x1="260dp"
+		xkp:pos_y1="300dp"
+		xkp:radius="20dp"
+		
+		xkp:line_width="1dp"
+		xkp:fill_color="@color/magenta"
+		xkp:stroke_color="@color/blue"
+		/>
+	
 </xkp.qva.android.libs.Layouts.XKPLayout>

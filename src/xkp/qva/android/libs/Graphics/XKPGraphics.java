@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -19,6 +20,8 @@ import xkp.qva.android.Graphics2D.R;
 import xkp.qva.android.libs.Layouts.XKPLayout;
 
 public class XKPGraphics extends View {
+	
+	private final boolean	XKPDEBUG			= true;
 	
 	private final Integer	DEFAULT_SIZE		= 10;
 	
@@ -194,6 +197,16 @@ public class XKPGraphics extends View {
 			mDrawable.draw(canvas);
 		}
 		
+		if(XKPDEBUG) {
+			Paint paint = new Paint();
+			paint.setStyle(Paint.Style.STROKE);
+			paint.setColor(Color.WHITE);
+			paint.setAntiAlias(true);
+			paint.setStrokeWidth(2);
+			canvas.drawPoint(mCenterX, mCenterY, paint);
+			canvas.drawRect(mX1, mY1, mX2, mY2, paint);
+		}
+		
 		canvas.restore();
 	}
 	
@@ -201,7 +214,7 @@ public class XKPGraphics extends View {
 		return true;
 	}
 	
-	private void preCalcAngle(double angle) {
+	protected void preCalcAngle(double angle) {
 
 		mAngle = angle % 360;
 		
@@ -333,7 +346,7 @@ public class XKPGraphics extends View {
 		return mRadius;
 	}
 	
-	private void preCalcPosition(Integer x1, Integer y1, Integer x2, Integer y2) {
+	protected void preCalcPosition(Integer x1, Integer y1, Integer x2, Integer y2) {
 		
 		mX1 = x1;
 		mY1 = y1;
@@ -366,8 +379,21 @@ public class XKPGraphics extends View {
 		invalidate();
 	}
 	
+	public void setPosition(Integer x1, Integer y1, boolean anchorRightBottom) {
+		
+		Integer x2 = mX2;
+		Integer y2 = mY2;
+		
+		if(anchorRightBottom == false) {
+			x2 = x1 + mDX;
+			y2 = y1 + mDY;
+		}
+		
+		setPosition(x1, y1, x2, y2);
+	}
+	
 	public void setPosition(Integer x1, Integer y1) {
-		setPosition(x1, y1, getX2(), getY2());
+		setPosition(x1, y1, false);
 	}
 	
 	public void setFigureSize(Integer width, Integer height) {
