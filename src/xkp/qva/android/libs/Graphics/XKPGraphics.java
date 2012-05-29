@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -20,8 +19,6 @@ import xkp.qva.android.Graphics2D.R;
 import xkp.qva.android.libs.Layouts.XKPLayout;
 
 public class XKPGraphics extends View {
-	
-	private final boolean	XKPDEBUG			= true;
 	
 	private final Integer	DEFAULT_SIZE		= 10;
 	
@@ -159,7 +156,7 @@ public class XKPGraphics extends View {
 		if(!getIsDrawable() || getVisibility() != VISIBLE)
 			return;
 		
-		canvas.save();
+		//canvas.save();
 		
 		View parent = (View)getParent();
 		if(parent instanceof XKPLayout) {
@@ -170,6 +167,9 @@ public class XKPGraphics extends View {
 
 		if(mBitmap != null) {
 			if(mX2 <= 0 || mY2 <= 0) return;
+			
+			Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+			paint.setAntiAlias(true);
 			
 			// http://stackoverflow.com/questions/5287483/image-changes-size-as-its-rotated-how-do-i-stop-this
 	        // precompute some trig functions
@@ -187,7 +187,7 @@ public class XKPGraphics extends View {
 	        					mCenterX + middleWidth, mCenterY + middleHeight);
 	        
 			Bitmap renderBmp = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), mMtxAngle, false);
-			canvas.drawBitmap(renderBmp, null, newRectF, null);
+			canvas.drawBitmap(renderBmp, null, newRectF, paint);
 		}
 		
 		if(mDrawable != null) {
@@ -197,18 +197,14 @@ public class XKPGraphics extends View {
 			mDrawable.draw(canvas);
 		}
 		
-		if(XKPDEBUG) {
-			Paint paint = new Paint();
-			paint.setStyle(Paint.Style.STROKE);
-			paint.setColor(Color.WHITE);
-			paint.setAntiAlias(true);
-			paint.setStrokeWidth(2);
-			canvas.drawPoint(mCenterX, mCenterY, paint);
-			canvas.drawRect(mX1, mY1, mX2, mY2, paint);
-		}
-		
-		canvas.restore();
+		//canvas.restore();
 	}
+	
+//	private void invalidateRect() {
+//		//TODO: calculate the max coordinate when figure is rotated 45 degree
+//		//		then, replace all invalidate() methods for invalidateRect()
+//		invalidate(mX1, mY1, mX2, mY2);
+//	}
 	
 	protected Boolean getIsDrawable() {
 		return true;
