@@ -138,4 +138,15 @@
 		xkp:stroke_color="@color/yellow"
 		/>
  
+    <xkp.qva.android.libs.Graphics.XKPImage
+        android:id="@+id/floor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xkp:pos_height="10dp"
+        xkp:pos_width="300dp"
+        xkp:pos_x1="0dp"
+        xkp:pos_y1="380dp"
+        xkp:src="@drawable/stone"
+        />
+
 </xkp.qva.android.libs.Layouts.XKPLayout>

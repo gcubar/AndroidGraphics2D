@@ -70,6 +70,7 @@ public class XKPImage extends XKPGraphics {
 	private void calculateSize() {
 		if(mBitmap == null) return;
 		
-		setFigureSize(mBitmap.getWidth(), mBitmap.getHeight());
+		if(mX2 == -1 && mY2 == -1)
+			setFigureSize(mBitmap.getWidth(), mBitmap.getHeight());
 	}
 }
